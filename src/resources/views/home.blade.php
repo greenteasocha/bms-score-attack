@@ -3,7 +3,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
-        <h1>
+        {{-- <h1>
             <a href="/users/1"> Hello, USER1<br> </a>
             @php
             $val = 10;
@@ -23,9 +23,25 @@
             @endforeach
             <br>
 
+        </h1> --}}
+        <h1>
+            Top Page
         </h1>
+        @php
+            $url = "/contests/1"
+        @endphp
+        <h2>
+            <a href={!! "/contests/" . date("Ymd") !!}> Today's contest </a>
+        </h2>
+
+        ↓Blade のテスト <br>
+
+        @php
+            print(date("Ymd"))   
+        @endphp
         <form method="post" action="/home" >
             @csrf
+            
             
             <label for="to">Who to?</label>
             <input name="to" id="to" value="Mom">

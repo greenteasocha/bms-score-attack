@@ -53,7 +53,7 @@ Route::get('/users/{userId}', function ($userId) {
     return $userData;
 });
 
-Route::get('contests/{contestId}', function($contestId) { 
+Route::get('/contests/{contestId}', function($contestId) { 
     $music = ["music A", "music B", "music C"][$contestId % 3];
 
     $contestData = [
@@ -72,8 +72,12 @@ Route::get('contests/{contestId}', function($contestId) {
         ],
     ];
 
-    return view("rankings", ['rankings' => $contestData["RankingData"]]);
+    return view("rankings", ['rankingData' => $contestData["RankingData"]]);
     // return $contestData;
+});
+
+Route::post('/contests', function() {
+    Log::debug('< contest score >  POST CREATED!!!!!');
 });
 
 Route::get('blade', function () {
