@@ -1,5 +1,9 @@
 <?php
 
+// namespace App\Http\Controllers;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +27,18 @@ Route::get('/home', function () {
         ]
     ];
     // return $contests;
+    $musics = DB::select('select * from Musics', [1]);
+    Log::debug($musics);
     Log::debug('home page!');
     return view("home");
-});     
+});  
+
+
+
+Route::post('/home', function (){ 
+    Log::debug('POST CREATED!!!!!');
+});
+
 
 Route::get('/users/{userId}', function ($userId) {
     $userName = 'user' . (string)$userId;
@@ -38,4 +51,35 @@ Route::get('/users/{userId}', function ($userId) {
     ];
 
     return $userData;
+});
+
+Route::get('contests/{contestId}', function($contestId) { 
+    $music = ["music A", "music B", "music C"][$contestId % 3];
+
+    $contestData = [
+        "BasicInfo" => [
+            'contesdtId' => $contestId,
+            'musicName' => $music,
+            'holdedDate' => date('m d'),
+        ],
+        "RankingData" => [
+            ["name" =>  "user1",
+            "score" => 4000,
+            "comment" => ""],
+            ["name" => "user2",
+            "score" => 3900,
+            "comment" => "good"]
+        ],
+    ];
+
+    return view("rankings", ['rankings' => $contestData["RankingData"]]);
+    // return $contestData;
+});
+
+Route::get('blade', function () {
+    return view('child');
+});
+
+Route::get('greeting', function () {
+    return view('welcome', ['name' => 'Samantha']);
 });

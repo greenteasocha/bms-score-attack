@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine
+  FROM php:7.4-fpm-alpine
 LABEL maintainer="ucan-lab <info@u-can.tech>"
 
 SHELL ["/bin/ash", "-oeux", "pipefail", "-c"]
@@ -39,3 +39,5 @@ RUN apk update && \
   composer config -g process-timeout 3600 && \
   composer config -g repos.packagist composer https://packagist.jp && \
   composer global require hirak/prestissimo
+
+# WORKDIR /var/www/html
