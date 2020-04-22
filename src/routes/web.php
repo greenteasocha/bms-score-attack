@@ -58,27 +58,41 @@ Route::get('/contests/{contestId}', function($contestId) {
 
     $contestData = [
         "BasicInfo" => [
-            'contesdtId' => $contestId,
+            'contestId' => $contestId,
             'musicName' => $music,
-            'holdedDate' => date('m d'),
+            'holdedDate' => date('Ymd'),
         ],
         "RankingData" => [
-            ["name" =>  "user1",
+            ["userId" => 1,
+            "name" =>  "user1",
             "score" => 4000,
             "comment" => ""],
-            ["name" => "user2",
+            ['userId' => 2,
+            "name" => "user2",
             "score" => 3900,
             "comment" => "good"]
         ],
     ];
 
-    return view("rankings", ['rankingData' => $contestData["RankingData"]]);
+    return view("rankings", ['basicInfo' => $contestData["BasicInfo"], 'rankingData' => $contestData["RankingData"]]);
     // return $contestData;
 });
 
-Route::post('/contests', function() {
+Route::post('/contests/{contestId}', function($contestId) {
     Log::debug('< contest score >  POST CREATED!!!!!');
+    print('Successfully posted on contest: ' . $contestId);
 });
+
+Route::get('/users/{userId}', function($userId) {
+
+    $user = [
+        'userId' => $userId,
+        'userName' => 'Taro',
+    ];
+
+    return view('user', ['user' => $user]);
+});
+
 
 Route::get('blade', function () {
     return view('child');

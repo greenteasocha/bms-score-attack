@@ -2,7 +2,7 @@
     <body>
         <h1>HI</h1>
 
-        <form action="/contests" method="POST">
+        <form action={!! "/contests/" . $basicInfo["contestId"] !!} method="POST">
             {{-- TODO: とりあえずuserNameは手動入力にする。後々はログインしてもらってヘッダから獲得する --}}
             @csrf
             
@@ -26,7 +26,9 @@
         @foreach ($rankingData as $ranking)
             <div>    
                 {{-- {{ $loop->iteation }} --}}
+                <a href={!! "/users/" . $ranking["userId"] !!}>
                 {{ $ranking["name"] }}
+                </a>
                 {{ $ranking["score"] }}
                 {{ $ranking["comment"] }}
             </div>
