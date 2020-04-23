@@ -9,5 +9,15 @@ class Score extends Model
     protected $fillable = ['contestId', 'score', 'submittedAt'];
     protected $table = 'scores';
     protected $primaryKey = 'id';
+
+    public function contest()
+    {
+        return $this->belongsTo('App\Models\Contest', 'contestId');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User', 'userId');
+    }
    
 }
