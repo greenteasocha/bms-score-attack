@@ -3,6 +3,7 @@
 // namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,7 @@ Route::get('/home', function () {
             'name' => 'taro',
         ]
     ];
+
     // return $contests;
     $musics = DB::select('select * from Musics', [1]);
     Log::debug($musics);
@@ -56,32 +58,32 @@ Route::get('/users/{userId}', function ($userId) {
 Route::get('/contests/{contestId}', function($contestId) { 
     $music = ["music A", "music B", "music C"][$contestId % 3];
 
-    $contestData = [
-        "BasicInfo" => [
-            'contestId' => $contestId,
-            'musicName' => $music,
-            'holdedDate' => date('Ymd'),
-        ],
-        "RankingData" => [
-            ["userId" => 1,
-            "name" =>  "user1",
-            "score" => 4000,
-            "comment" => ""],
-            ['userId' => 2,
-            "name" => "user2",
-            "score" => 3900,
-            "comment" => "good"]
-        ],
+    
+    $basicInfo = [
+        'contestId' => $contestId,
+        'musicName' => $music,
+        'heldDate' => date('Ymd'),
+    ];
+    $rankingData = [
+        ["userId" => 1,
+        "name" =>  "user1",
+        "score" => 4000,
+        "comment" => ""],
+        ['userId' => 2,
+        "name" => "user2",
+        "score" => 3900,
+        "comment" => "good"]
     ];
 
-    return view("rankings", ['basicInfo' => $contestData["BasicInfo"], 'rankingData' => $contestData["RankingData"]]);
+    return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
     // return $contestData;
 });
 
-Route::post('/contests/{contestId}', function($contestId) {
-    Log::debug('< contest score >  POST CREATED!!!!!');
-    print('Successfully posted on contest: ' . $contestId);
-});
+Route::post('/contests/{contestId}', 'ScorePostController@loggingPostedContents');
+// Route::post('/contests/{contestId}', function($contestId) {
+//     Log::debug('< contest score >  POST CREATED!!!!!');
+//     print('Successfully posted on contest: ' . $contestId);
+// });
 
 Route::get('/users/{userId}', function($userId) {
 
@@ -93,6 +95,11 @@ Route::get('/users/{userId}', function($userId) {
     return view('user', ['user' => $user]);
 });
 
+Route::get('/musics', function() {
+    $musics = DB::table('Musics')->get();
+    print($musics);
+});
+
 
 Route::get('blade', function () {
     return view('child');
@@ -100,4 +107,11 @@ Route::get('blade', function () {
 
 Route::get('greeting', function () {
     return view('welcome', ['name' => 'Samantha']);
+});
+
+Route::get('/elousers', function() { 
+    // User::insert(['userName'=>'sabro', 'password'=>'hisabro']);
+    $siro = User::create(['userName'=>'siro', 'password'=>'hisiro']);
+    $user = User::all();
+    return $user;
 });
