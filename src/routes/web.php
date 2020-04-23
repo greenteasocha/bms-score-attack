@@ -49,31 +49,30 @@ Route::get('/users/{userId}', function ($userId) {
     return $userData;
 });
 
-Route::get('/contests/test/{contestId}', 'ContestPageController@aggregateRankingData');
+Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData');
 
-Route::get('/contests/{contestId}', function($contestId) { 
-    $music = ["music A", "music B", "music C"][$contestId % 3];
+// Route::get('/contests/{contestId}', function($contestId) { 
+//     $music = ["music A", "music B", "music C"][$contestId % 3];
 
     
-    $basicInfo = [
-        'contestId' => $contestId,
-        'musicName' => $music,
-        'heldDate' => date('Ymd'),
-    ];
-    $rankingData = [
-        ["userId" => 1,
-        "name" =>  "user1",
-        "score" => 4000,
-        "comment" => ""],
-        ['userId' => 2,
-        "name" => "user2",
-        "score" => 3900,
-        "comment" => "good"]
-    ];
+//     $basicInfo = [
+//         'contestId' => $contestId,
+//         'musicName' => $music,
+//         'heldDate' => date('Ymd'),
+//     ];
+//     $rankingData = [
+//         ["userId" => 1,
+//         "name" =>  "user1",
+//         "score" => 4000,
+//         "comment" => ""],
+//         ['userId' => 2,
+//         "name" => "user2",
+//         "score" => 3900,
+//         "comment" => "good"]
+//     ];
 
-    return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
-    // return $contestData;
-});
+//     return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
+// });
 
 Route::post('/contests/{contestId}', 'ScorePostController@loggingPostedContents');
 // Route::post('/contests/{contestId}', function($contestId) {
@@ -81,21 +80,25 @@ Route::post('/contests/{contestId}', 'ScorePostController@loggingPostedContents'
 //     print('Successfully posted on contest: ' . $contestId);
 // });
 
-Route::get('/users/{userId}', function($userId) {
+Route::get('/users/{userId}', 'UserPageController@aggregateUserData');
 
-    $user = [
-        'userId' => $userId,
-        'userName' => 'Taro',
-    ];
+// Route::get('/users/{userId}', function($userId) {
 
-    return view('user', ['user' => $user]);
-});
+//     $user = [
+//         'userId' => $userId,
+//         'userName' => 'Taro',
+//     ];
+
+//     return view('user', ['user' => $user]);
+// });
 
 Route::get('/musics', function() {
     $musics = DB::table('Musics')->get();
     print($musics);
 });
 
+
+// ==================== 適当なテストようリンク ===========================
 
 Route::get('blade', function () {
     return view('child');
@@ -104,6 +107,7 @@ Route::get('blade', function () {
 Route::get('greeting', function () {
     return view('welcome', ['name' => 'Samantha']);
 });
+
 
 Route::get('/elousers', function() { 
     // Eloquentモデル？の適当なverify

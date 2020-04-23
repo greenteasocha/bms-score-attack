@@ -10,7 +10,7 @@ class TopPageController extends Controller
 {
     public function getTopPage(){
         // $date = date('Y-m-d');
-        $date = '2020-04-02'; // test data
+        $date = '2020-04-01'; // test data
         $contest = Contest::where('eventDate', $date)->first();
         
         return view("home", ["contest" => $contest]);

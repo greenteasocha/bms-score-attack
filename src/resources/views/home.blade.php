@@ -3,27 +3,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
     <body>
-        {{-- <h1>
-            <a href="/users/1"> Hello, USER1<br> </a>
-            @php
-            $val = 10;
-            $fruit = ['apple', 'orange'];
-            @endphp
-
-            {{ $val % 2 === 0 ? '偶数' : '奇数' }}
-            <br>
-            @if ($val === 10)
-            10です。
-            @else
-            10ではないです。
-            @endif
-            <br>
-            @foreach($fruit as $index => $name)
-            {{ "{$index}: {$name}" }}
-            @endforeach
-            <br>
-
-        </h1> --}}
         <h1>
             Top Page
         </h1>
@@ -33,7 +12,7 @@
         @endphp
         <h2>
             {{-- <a href={!! "/contests/" . date("Ymd") !!}> Today's contest </a> --}}
-            <a href={{ $url }}> Today's contest </a>
+            <a href={{ $url }}> Today's contest {{ $contest["eventDate"] }} </a>
         </h2>
 
         ↓Blade のテスト <br>
