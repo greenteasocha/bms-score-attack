@@ -4,6 +4,8 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\Music;
+use App\Models\Contest;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,8 @@ Route::get('/users/{userId}', function ($userId) {
 
     return $userData;
 });
+
+Route::get('/contests/test/{contestId}', 'ContestPageController@aggregateRankingData');
 
 Route::get('/contests/{contestId}', function($contestId) { 
     $music = ["music A", "music B", "music C"][$contestId % 3];
@@ -110,8 +114,18 @@ Route::get('greeting', function () {
 });
 
 Route::get('/elousers', function() { 
+    // Eloquentモデル？の適当なverify
     // User::insert(['userName'=>'sabro', 'password'=>'hisabro']);
     $siro = User::create(['userName'=>'siro', 'password'=>'hisiro']);
     $user = User::all();
     return $user;
+});
+
+Route::get('/ormtest', function(){
+    // 適当にEloquentリレーションの挙動を確かめる
+    // 今、レコードを何回も削除したり追加したりしたせいでレコードの連番IDが24とかから始まっているので危険
+    $musicId = 24;
+    $contest = optional(
+        Music::find($musicId)->contest);
+    return $contest->contestId . $contest->holdedDate;
 });
