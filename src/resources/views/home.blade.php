@@ -28,10 +28,12 @@
             Top Page
         </h1>
         @php
-            $url = "/contests/1"
+            $contestId = (string) $contest->id;
+            $url = "/contests/" . $contestId 
         @endphp
         <h2>
-            <a href={!! "/contests/" . date("Ymd") !!}> Today's contest </a>
+            {{-- <a href={!! "/contests/" . date("Ymd") !!}> Today's contest </a> --}}
+            <a href={{ $url }}> Today's contest </a>
         </h2>
 
         ↓Blade のテスト <br>

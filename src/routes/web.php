@@ -22,22 +22,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    $contests = [
-        'contests' => [
-            'id' => '1',
-            'name' => 'taro',
-        ]
-    ];
+// Route::get('/home', function () {
+//     $musics = DB::select('select * from Musics', [1]);
+//     Log::debug($musics);
+//     Log::debug('home page!');
+//     return view("home");
+// });  
 
-    // return $contests;
-    $musics = DB::select('select * from Musics', [1]);
-    Log::debug($musics);
-    Log::debug('home page!');
-    return view("home");
-});  
-
-
+Route::get('/home', 'TopPageController@getTopPage');
 
 Route::post('/home', function (){ 
     Log::debug('POST CREATED!!!!!');
