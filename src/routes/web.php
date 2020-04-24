@@ -74,7 +74,7 @@ Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData'
 //     return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
 // });
 
-Route::post('/contests/{contestId}', 'ScorePostController@loggingPostedContents');
+Route::post('/contests/{contestId}', 'ContestPageController@handlePostedScore');
 // Route::post('/contests/{contestId}', function($contestId) {
 //     Log::debug('< contest score >  POST CREATED!!!!!');
 //     print('Successfully posted on contest: ' . $contestId);

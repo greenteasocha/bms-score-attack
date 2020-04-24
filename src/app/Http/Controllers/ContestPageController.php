@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Models\Music;
 use App\Models\Contest;
+use App\Models\Score;
 
 class ContestPageController extends Controller
 {
@@ -36,4 +37,31 @@ class ContestPageController extends Controller
         return view("rankings", ['basicInfo'=> $contest, 'scores' => $aggregatedScores]);
         // return $music->music->musicName;
     }
+
+    public function handlePostedScore(Request $request, $contestId){
+        
+        // ここにDB INSERT または UPDATE処理をかく
+        $previousScore = Score::where('contestId', $contestId)->where('userId', $request['userId'])->first();
+        
+        if (is_null($previousScore)) {
+            // 初提出の場合、レコードを作成
+            $score = new Score();
+            $score->fill([
+                'userId' => $request["userId"],
+                'contestId' => $contestId,
+                'score' => $request["score"],
+                'comment' => $request["comment"],
+            ])->save();
+            return "db"; // TODO リダイレクト
+        } elseif ($request['score'] > $previousScore['score']) {
+            // ここにUPDATEの処理を書く
+            $previousScore->score = $request['score'];
+            $previousScore->save();
+            return 'upd';
+        } else {
+            return 'none';
+            // 一応なんかかく？
+        }
+    }
+
 }
