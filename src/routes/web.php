@@ -125,3 +125,6 @@ Route::get('/ormtest', function(){
         Music::find($musicId)->contest);
     return $contest->contestId . $contest->holdedDate;
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
