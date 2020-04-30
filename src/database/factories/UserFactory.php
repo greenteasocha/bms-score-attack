@@ -21,6 +21,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'userName' => $faker->name,
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        'email' =>  $faker->email,
     ];
 });
 
@@ -28,6 +29,6 @@ $factory->define(Music::class, function (Faker $faker) {
     return [
         'musicName' => $faker->word,
         'totalNotes' => $faker->numberBetween(1000, 4000),
-        'downloadLink' => $faker->url,
+        'LR2Link' => $faker->url,
     ];
 });

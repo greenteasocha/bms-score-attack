@@ -17,12 +17,12 @@ class ContestsTableSeeder extends Seeder
             $y = '2020';
             $m = '4';
             $d = '01';
-            $holdedDate = date('Y-m-d', mktime(0, 0, 0, $m, $d + $i, $y));
+            $eventDate = date('Y-m-d', mktime(0, 0, 0, $m, $d + $i, $y));
             
             Contest::create([
-                'musicId' => $i + 24,
+                'musicId' => $i + 1,
                 'contestDivision' => 1,
-                'holdedDate' => $holdedDate,
+                'eventDate' => $eventDate,
             ]);
         }
     }

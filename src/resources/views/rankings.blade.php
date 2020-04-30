@@ -1,13 +1,13 @@
 <html>
     <body>
-        <h1>HI</h1>
+    <h1>HI, here is contest {{ $basicInfo["id"] }}</h1>
 
-        <form action={!! "/contests/" . $basicInfo["contestId"] !!} method="POST">
+        <form action={!! "/contests/" . $basicInfo["id"] !!} method="POST">
             {{-- TODO: とりあえずuserNameは手動入力にする。後々はログインしてもらってヘッダから獲得する --}}
             @csrf
             
-            <label for="userName">UserName</label>
-            <input name="userName" id="userName" value="">
+            <label for="userId">UserId</label>
+            <input name="userId" id="userId" value="">
 
             <label for="score">score</label>
             <input name="score" id="score" value="">
@@ -23,14 +23,14 @@
 
         <b> Player / score / comment <br> </b>
 
-        @foreach ($rankingData as $ranking)
+        @foreach ($scores as $score)
             <div>    
                 {{-- {{ $loop->iteation }} --}}
-                <a href={!! "/users/" . $ranking["userId"] !!}>
-                {{ $ranking["name"] }}
+                <a href={!! "/users/" . $score["userId"] !!}>
+                {{ $score["name"] }}
                 </a>
-                {{ $ranking["score"] }}
-                {{ $ranking["comment"] }}
+                {{ $score["score"] }}
+                {{ $score["comment"] }}
             </div>
         @endforeach
     </body>
