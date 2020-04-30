@@ -65,7 +65,12 @@
     </head>
     <body>
         <h1>
-            Hello.
+            @auth
+            Hello.　{{ $authInfo->userName }}
+            @endauth
+            @guest
+            Hello. GUEST
+            @endguest
         </h1>
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))

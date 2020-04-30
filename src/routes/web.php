@@ -20,7 +20,9 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $authInfo = Auth::user();
+    return view('welcome', ['authInfo' => $authInfo]);
+    // return 1;
 });
 
 Route::get('/home', 'TopPageController@getTopPage');
@@ -84,7 +86,7 @@ Route::get('/ormtest', function(){
 });
 
 Route::get('auth-check', function(){
-    return Auth::user();
+    return Auth::id();
 });
 
 Auth::routes();
