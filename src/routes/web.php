@@ -117,6 +117,7 @@ Route::get('/elousers', function() {
     return $user;
 });
 
+<<<<<<< HEAD
 Route::get('/ormtest', function(){
     // 適当にEloquentリレーションの挙動を確かめる
     // 今、レコードを何回も削除したり追加したりしたせいでレコードの連番IDが24とかから始まっているので危険
@@ -129,6 +130,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+=======
+>>>>>>> 69b86
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
