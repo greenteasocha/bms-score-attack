@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Auth;
 class ContestPageController extends Controller
 {
     public function aggregateRankingData($contestId){
-        Log::debug($contestId);
-        $aggregatedScores = array();
+        // contests/{$contestId}へのGET
         
+        // まずそのコンテストに関係するスコアを取得
+        $aggregatedScores = array();
         $contest = Contest::where('id', $contestId)->first();
         $scores = $contest->scores;
 
@@ -35,14 +36,16 @@ class ContestPageController extends Controller
         array_multisort($sort, SORT_DESC, $aggregatedScores);
         
         $authInfo = Auth::user();
-        // return ['scores' => $aggregatedScores];
-        return view("rankings", ['basicInfo'=> $contest, 'authInfo' => $authInfo, 'scores' => $aggregatedScores]);
-        // return $music->music->musicName;
+    
+        return view("rankings", [
+            'basicInfo'=> $contest, 
+            'authInfo' => $authInfo, 
+            'scores' => $aggregatedScores
+            ]);
     }
 
     public function handlePostedScore(Request $request, $contestId){
-
-        // ここにDB INSERT または UPDATE処理をかく
+        // (存在すれば)そのプレイヤーが過去に提出したハイスコアをチェック
         $previousScore = Score::where('contestId', $contestId)->where('userId', $request['userId'])->first();
         
         if (is_null($previousScore)) {
@@ -56,15 +59,12 @@ class ContestPageController extends Controller
             ])->save();
             return redirect('/contests/' . $contestId);
         } elseif ($request['score'] > $previousScore['score']) {
-            // ここにUPDATEの処理を書く
             $previousScore->score = $request['score'];
             $previousScore->comment = $request['comment'];
             $previousScore->save();
             return redirect('/contests/' . $contestId);
         } else {
-            return 'none';
-            // 一応なんかかく？
+            return redirect('/contests/' . $contestId);
         }
     }
-
 }

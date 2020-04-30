@@ -31,6 +31,15 @@ Route::post('/home', function (){
     Log::debug('POST CREATED!!!!!');
 });
 
+Route::get('/mypage', function(){
+    if (Auth::check()) {
+        return redirect('/users/' . Auth::id());
+    } else {
+        // ログインしないとmyPageへのリンクが表示されない実装にはするが
+        return redirect('/login');
+    }
+
+});
 
 Route::get('/users/{userId}', function ($userId) {
     $userName = 'user' . (string)$userId;
