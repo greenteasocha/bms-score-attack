@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Music;
 use App\Models\Contest;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +22,6 @@ use App\Models\Contest;
 Route::get('/', function () {
     return view('welcome');
 });
-
-// Route::get('/home', function () {
-//     $musics = DB::select('select * from Musics', [1]);
-//     Log::debug($musics);
-//     Log::debug('home page!');
-//     return view("home");
-// });  
 
 Route::get('/home', 'TopPageController@getTopPage');
 
@@ -51,46 +45,9 @@ Route::get('/users/{userId}', function ($userId) {
 
 Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData');
 
-// Route::get('/contests/{contestId}', function($contestId) { 
-//     $music = ["music A", "music B", "music C"][$contestId % 3];
-
-    
-//     $basicInfo = [
-//         'contestId' => $contestId,
-//         'musicName' => $music,
-//         'heldDate' => date('Ymd'),
-//     ];
-//     $rankingData = [
-//         ["userId" => 1,
-//         "name" =>  "user1",
-//         "score" => 4000,
-//         "comment" => ""],
-//         ['userId' => 2,
-//         "name" => "user2",
-//         "score" => 3900,
-//         "comment" => "good"]
-//     ];
-
-//     return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
-// });
-
 Route::post('/contests/{contestId}', 'ContestPageController@handlePostedScore');
-// Route::post('/contests/{contestId}', function($contestId) {
-//     Log::debug('< contest score >  POST CREATED!!!!!');
-//     print('Successfully posted on contest: ' . $contestId);
-// });
 
 Route::get('/users/{userId}', 'UserPageController@aggregateUserData');
-
-// Route::get('/users/{userId}', function($userId) {
-
-//     $user = [
-//         'userId' => $userId,
-//         'userName' => 'Taro',
-//     ];
-
-//     return view('user', ['user' => $user]);
-// });
 
 Route::get('/musics', function() {
     $musics = DB::table('Musics')->get();
@@ -117,7 +74,6 @@ Route::get('/elousers', function() {
     return $user;
 });
 
-<<<<<<< HEAD
 Route::get('/ormtest', function(){
     // 適当にEloquentリレーションの挙動を確かめる
     // 今、レコードを何回も削除したり追加したりしたせいでレコードの連番IDが24とかから始まっているので危険
@@ -126,12 +82,11 @@ Route::get('/ormtest', function(){
         Music::find($musicId)->contest);
     return $contest->contestId . $contest->holdedDate;
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('auth-check', function(){
+    return Auth::user();
+});
 
-=======
->>>>>>> 69b86
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
