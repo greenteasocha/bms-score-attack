@@ -15,7 +15,7 @@ class CreateContestsTable extends Migration
     {
         Schema::create('contests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->date('eventDate')->index();
+            $table->date('eventDate')->unique();
             $table->integer('contestDivision');
             $table->timestamps();
 

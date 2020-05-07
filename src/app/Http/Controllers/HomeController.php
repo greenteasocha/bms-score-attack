@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Contest;
-
+use App\Services\HomeService;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -12,9 +13,9 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(HomeService $home_service)
     {
-        $this->middleware('auth');
+        $this->homeService = $home_service;
     }
 
     /**
@@ -24,8 +25,17 @@ class HomeController extends Controller
      */
     public function index()
     {   
-        $date = '2020-04-01'; // test data
-        $contest = Contest::where('eventDate', $date)->first();
-        return view('home2', ['contest'=>$contest]);
+        $recentSevenContests =  $this->homeService->getHomeContents();
+        $todaysContest = current($recentSevenContests);
+        $pastSixContests = array_slice($recentSevenContests, 1, );
+        
+        $authInfo = Auth::user();
+        // return $pastSixContests;
+
+        return view('home', [
+            'authInfo' => $authInfo,
+            'todaysContest' => $todaysContest,
+            'pastSixContests' => $pastSixContests,
+        ]);
     }
 }
