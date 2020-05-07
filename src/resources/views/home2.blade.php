@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <html>
     <head>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,7 +18,7 @@
             <a href={{ $url }}> Today's contest {{ $contest["eventDate"] }} </a>
         </h2>
 
-        ↓Blade のテスト <br>
+        {{-- ↓Blade のテスト <br>
 
         @php
             print(date("Ymd"))   
@@ -36,6 +39,7 @@
 
             <h2>form 2</h2>
             <button>Send my greetings</button>
-        </form>
+        </form> --}}
     </body>
 </html>
+@endsection

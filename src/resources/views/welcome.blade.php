@@ -89,7 +89,9 @@
 
             <div class="content">
                 <div class="title m-b-md">
+                    <a href="/contests/1">
                     Laravel
+                    </a>
                 </div>
 
                 <div class="links">

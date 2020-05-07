@@ -22,14 +22,9 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     $authInfo = Auth::user();
     return view('welcome', ['authInfo' => $authInfo]);
-    // return 1;
 });
 
 Route::get('/home', 'TopPageController@getTopPage');
-
-Route::post('/home', function (){ 
-    Log::debug('POST CREATED!!!!!');
-});
 
 Route::get('/mypage', function(){
     if (Auth::check()) {
@@ -38,7 +33,6 @@ Route::get('/mypage', function(){
         // ログインしないとmyPageへのリンクが表示されない実装にはするが
         return redirect('/login');
     }
-
 });
 
 Route::get('/users/{userId}', function ($userId) {
@@ -53,6 +47,8 @@ Route::get('/users/{userId}', function ($userId) {
 
     return $userData;
 });
+
+Route::get('/contests', 'ContestPageController@showAllContests');
 
 Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData');
 

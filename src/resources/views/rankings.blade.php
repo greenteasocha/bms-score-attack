@@ -1,3 +1,7 @@
+
+@extends('layouts.app')
+
+@section('content')
 <html>
     <body>
     <h1>HI, here is contest {{ $basicInfo["id"] }}</h1>
@@ -23,7 +27,6 @@
         <a href="/home"> Back to home <br> </a>
 
         <b> Player / score / comment <br> </b>
-        {{ $authInfo->id }}
         @foreach ($scores as $score)
             <div>    
                 {{-- {{ $loop->iteation }} --}}
@@ -36,3 +39,4 @@
         @endforeach
     </body>
 </html>
+@endsection
