@@ -11,11 +11,8 @@
 
 <img width="1437" alt="スクリーンショット 2020-05-11 10 24 10" src="https://user-images.githubusercontent.com/37926549/81516050-a2321480-9371-11ea-8794-8c7c3a7b18b6.png">
 
+要素技術  
 
-Build Laravel's development environment using docker.
-PHP7.4/MySQL8.0/nginx/redis/node
-
-要素技術
 docker-compose
 
 -app 
