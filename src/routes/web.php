@@ -20,15 +20,20 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $authInfo = Auth::user();
+    return view('welcome', ['authInfo' => $authInfo]);
 });
 
 Route::get('/home', 'TopPageController@getTopPage');
 
-Route::post('/home', function (){ 
-    Log::debug('POST CREATED!!!!!');
+Route::get('/mypage', function(){
+    if (Auth::check()) {
+        return redirect('/users/' . Auth::id());
+    } else {
+        // ログインしないとmyPageへのリンクが表示されない実装にはするが
+        return redirect('/login');
+    }
 });
-
 
 Route::get('/users/{userId}', function ($userId) {
     $userName = 'user' . (string)$userId;
@@ -42,6 +47,8 @@ Route::get('/users/{userId}', function ($userId) {
 
     return $userData;
 });
+
+Route::get('/contests', 'ContestPageController@showAllContests');
 
 Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData');
 
@@ -84,7 +91,7 @@ Route::get('/ormtest', function(){
 });
 
 Route::get('auth-check', function(){
-    return Auth::user();
+    return Auth::id();
 });
 
 Auth::routes();

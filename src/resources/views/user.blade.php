@@ -1,3 +1,7 @@
+@extends('layouts.app')
+
+@section('content')
+
 <html>
     <body>
         <h1>HI, here is User {{ $basicInfo["userName"] }}</h1>
@@ -18,3 +22,5 @@
         @endforeach
     </body>
 </html>
+
+@endsection
