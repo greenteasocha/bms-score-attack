@@ -25,6 +25,7 @@ class UserPageController extends Controller
         }
     
         // contestId順にソート
+        // $sort = array(); 
         foreach ($aggregatedUserHistories as $key => $value) {
             $sort[$key] = $value['contestId'];
         }

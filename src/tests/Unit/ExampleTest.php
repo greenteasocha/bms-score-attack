@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Models\Contest;
 use App\Models\Music;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -52,6 +53,11 @@ class ExampleTest extends TestCase
         $response = $this->get('/contests/2');
         $response->assertStatus(404);
 
+        $user = factory(User::class, 10)->create();
+        $response = $this->get('/users/1');
+        $response->assertStatus(200);
+        $response = $this->get('/users/2');
+        $response->assertStatus(404);
 
     }
     

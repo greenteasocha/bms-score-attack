@@ -4,7 +4,9 @@
 @section('content')
 <html>
     <body>
-    <h1>HI, here is contest {{ $basicInfo["id"] }}</h1>
+    <h1>HI, here is contest {{ $basicInfo["eventDate"] }}</h1>
+    <h1>Theme:  {{ $basicInfo["musicName"] }}</h1>
+
     @auth
         <form action={!! "/contests/" . $basicInfo["id"] !!} method="POST">
             {{-- TODO: とりあえずuserNameは手動入力にする。後々はログインしてもらってヘッダから獲得する --}}
@@ -25,18 +27,27 @@
         </form>
     @endauth
         <a href="/home"> Back to home <br> </a>
-
-        <b> Player / score / comment <br> </b>
-        @foreach ($scores as $score)
-            <div>    
-                {{-- {{ $loop->iteation }} --}}
-                <a href={!! "/users/" . $score["userId"] !!}>
-                {{ $score["name"] }}
-                </a>
-                {{ $score["score"] }}
-                {{ $score["comment"] }}
-            </div>
-        @endforeach
+        <table class="rankingtable">
+            <tr class="header-row">
+                <td><b> Player </b></td><td> <b>score </b></td> <td><b>comment </b></td>
+            </tr>
+            @foreach ($scores as $score)
+                <tr>    
+                    <td>
+                        {{-- {{ $loop->iteation }} --}}
+                        <a href={!! "/users/" . $score["userId"] !!}>
+                            {{ $score["name"] }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ $score["score"] }}
+                    </td>
+                    <td>
+                        {{ $score["comment"] }}
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </body>
 </html>
 @endsection

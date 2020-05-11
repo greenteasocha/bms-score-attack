@@ -28,14 +28,22 @@ class ContestService{
         // まずそのコンテストに関係するスコアを取得
         $aggregatedScores = array();
         $contest = Contest::where('id', $contestId)->first();
+        $music = $contest->music;
+        $basicInfo = [
+            'eventDate' => $contest->eventDate,
+            'contestId' => $contest->id,
+            'musicName' => $music->musicName,
+        ];
+        $authInfo = Auth::user();
 
         // return $contest;
         if (!$contest) {
              abort(404);
         }
 
+        // ここからスコア集計
         $scores = $contest->scores;
-    
+        
         if ( count($scores) !== 0 ) {
             foreach ($scores as $score){
                 $user = $score->user;
@@ -53,12 +61,10 @@ class ContestService{
                 $sort[$key] = $value['score'];
             }
             array_multisort($sort, SORT_DESC, $aggregatedScores);
-        }    
-        
-        $authInfo = Auth::user();
+        }   
     
         return [
-            'basicInfo'=> $contest, 
+            'basicInfo'=> $basicInfo, 
             'authInfo' => $authInfo, 
             'scores' => $aggregatedScores
         ];
