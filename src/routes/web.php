@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Music;
 use App\Models\Contest;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,30 +20,20 @@ use App\Models\Contest;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $authInfo = Auth::user();
+    return view('welcome', ['authInfo' => $authInfo]);
 });
 
-Route::get('/home', function () {
-    $contests = [
-        'contests' => [
-            'id' => '1',
-            'name' => 'taro',
-        ]
-    ];
+Route::get('/home', 'TopPageController@getTopPage');
 
-    // return $contests;
-    $musics = DB::select('select * from Musics', [1]);
-    Log::debug($musics);
-    Log::debug('home page!');
-    return view("home");
-});  
-
-
-
-Route::post('/home', function (){ 
-    Log::debug('POST CREATED!!!!!');
+Route::get('/mypage', function(){
+    if (Auth::check()) {
+        return redirect('/users/' . Auth::id());
+    } else {
+        // ログインしないとmyPageへのリンクが表示されない実装にはするが
+        return redirect('/login');
+    }
 });
-
 
 Route::get('/users/{userId}', function ($userId) {
     $userName = 'user' . (string)$userId;
@@ -57,53 +48,21 @@ Route::get('/users/{userId}', function ($userId) {
     return $userData;
 });
 
-Route::get('/contests/test/{contestId}', 'ContestPageController@aggregateRankingData');
+Route::get('/contests', 'ContestPageController@showAllContests');
 
-Route::get('/contests/{contestId}', function($contestId) { 
-    $music = ["music A", "music B", "music C"][$contestId % 3];
+Route::get('/contests/{contestId}', 'ContestPageController@aggregateRankingData');
 
-    
-    $basicInfo = [
-        'contestId' => $contestId,
-        'musicName' => $music,
-        'heldDate' => date('Ymd'),
-    ];
-    $rankingData = [
-        ["userId" => 1,
-        "name" =>  "user1",
-        "score" => 4000,
-        "comment" => ""],
-        ['userId' => 2,
-        "name" => "user2",
-        "score" => 3900,
-        "comment" => "good"]
-    ];
+Route::post('/contests/{contestId}', 'ContestPageController@handlePostedScore');
 
-    return view("rankings", ['basicInfo' => $basicInfo, 'rankingData' => $rankingData]);
-    // return $contestData;
-});
-
-Route::post('/contests/{contestId}', 'ScorePostController@loggingPostedContents');
-// Route::post('/contests/{contestId}', function($contestId) {
-//     Log::debug('< contest score >  POST CREATED!!!!!');
-//     print('Successfully posted on contest: ' . $contestId);
-// });
-
-Route::get('/users/{userId}', function($userId) {
-
-    $user = [
-        'userId' => $userId,
-        'userName' => 'Taro',
-    ];
-
-    return view('user', ['user' => $user]);
-});
+Route::get('/users/{userId}', 'UserPageController@aggregateUserData');
 
 Route::get('/musics', function() {
     $musics = DB::table('Musics')->get();
     print($musics);
 });
 
+
+// ==================== 適当なテストようリンク ===========================
 
 Route::get('blade', function () {
     return view('child');
@@ -112,6 +71,7 @@ Route::get('blade', function () {
 Route::get('greeting', function () {
     return view('welcome', ['name' => 'Samantha']);
 });
+
 
 Route::get('/elousers', function() { 
     // Eloquentモデル？の適当なverify
@@ -129,3 +89,11 @@ Route::get('/ormtest', function(){
         Music::find($musicId)->contest);
     return $contest->contestId . $contest->holdedDate;
 });
+
+Route::get('auth-check', function(){
+    return Auth::id();
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

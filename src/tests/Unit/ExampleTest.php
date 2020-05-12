@@ -2,18 +2,63 @@
 
 namespace Tests\Unit;
 
+use App\Models\Contest;
+use App\Models\Music;
+use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class ExampleTest extends TestCase
 {
+    use DatabaseMigrations;
+
     /**
-     * A basic test example.
+     * A basic feature test example.
      *
      * @return void
      */
-    public function testBasicTest()
+    public function testExample()
     {
-        $this->assertTrue(true);
+        $response = $this->get('/');
+
+        $response->assertStatus(200);
     }
+
+    public function testBasicPatterns(){
+        $this -> assertTrue(True);
+
+        $arr = [];
+        $this -> assertEmpty($arr);
+
+        $msg = "Hello";
+        $this -> assertEquals("Hello", $msg);
+
+        $n = random_int(0, 100);
+    //     $this -> assertLessThan(100, $n);
+    }
+
+    public function testRouting(){
+        $response = $this->get('/contests');
+        $response->assertStatus(200);
+
+        $musics = factory(Music::class, 1)->create();
+        Contest::create([
+            'musicId' => 1,
+            'contestDivision' => 1,
+            'eventDate' => "2020-04-01",
+        ]);
+        $response = $this->get('/contests/1');
+        $response->assertStatus(200);
+        $response = $this->get('/contests/2');
+        $response->assertStatus(404);
+
+        $user = factory(User::class, 10)->create();
+        $response = $this->get('/users/1');
+        $response->assertStatus(200);
+        $response = $this->get('/users/2');
+        $response->assertStatus(404);
+
+    }
+    
 }

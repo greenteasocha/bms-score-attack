@@ -11,9 +11,9 @@ class Music extends Model
     protected $primaryKey = 'id';
 
 
-    public function contest()
+    public function contests()
     {
-        return $this->hasOne('App\Models\Contest', 'musicId');
+        return $this->hasMany('App\Models\Contest', 'musicId');
     }
 
 

@@ -1,13 +1,20 @@
+
+@extends('layouts.app')
+
+@section('content')
 <html>
     <body>
-        <h1>HI</h1>
+    <h1>HI, here is contest {{ $basicInfo["eventDate"] }}</h1>
+    <h1>Theme:  {{ $basicInfo["musicName"] }}</h1>
 
-        <form action={!! "/contests/" . $basicInfo["contestId"] !!} method="POST">
+    @auth
+        <form action={!! "/contests/" . $basicInfo["id"] !!} method="POST">
             {{-- TODO: とりあえずuserNameは手動入力にする。後々はログインしてもらってヘッダから獲得する --}}
             @csrf
             
-            <label for="userName">UserName</label>
-            <input name="userName" id="userName" value="">
+            {{-- <label for="userId">UserId</label>
+            <input name="userId" id="userId" value=""> --}}
+            <input type="hidden" name="userId" id="userId" value="{{ $authInfo->id }}">
 
             <label for="score">score</label>
             <input name="score" id="score" value="">
@@ -18,20 +25,29 @@
             <button>Send Score</button>
 
         </form>
-
+    @endauth
         <a href="/home"> Back to home <br> </a>
-
-        <b> Player / score / comment <br> </b>
-
-        @foreach ($rankingData as $ranking)
-            <div>    
-                {{-- {{ $loop->iteation }} --}}
-                <a href={!! "/users/" . $ranking["userId"] !!}>
-                {{ $ranking["name"] }}
-                </a>
-                {{ $ranking["score"] }}
-                {{ $ranking["comment"] }}
-            </div>
-        @endforeach
+        <table class="rankingtable">
+            <tr class="header-row">
+                <td><b> Player </b></td><td> <b>score </b></td> <td><b>comment </b></td>
+            </tr>
+            @foreach ($scores as $score)
+                <tr>    
+                    <td>
+                        {{-- {{ $loop->iteation }} --}}
+                        <a href={!! "/users/" . $score["userId"] !!}>
+                            {{ $score["name"] }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ $score["score"] }}
+                    </td>
+                    <td>
+                        {{ $score["comment"] }}
+                    </td>
+                </tr>
+            @endforeach
+        </table>
     </body>
 </html>
+@endsection
