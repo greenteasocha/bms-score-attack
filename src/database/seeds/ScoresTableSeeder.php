@@ -24,31 +24,31 @@ class ScoresTableSeeder extends Seeder
             $score->fill([
                 'userId' => 1,
                 'contestId' => $contestId,
-                'score' => $music->totalNotes * 2
+                'score' => (int) ($music->totalNotes * 2)
             ])->save();
             $score = new Score();
             $score->fill([
                 'userId' => 2,
                 'contestId' => $contestId,
-                'score' => $music->totalNotes * 2 * 0.95
+                'score' => (int) ($music->totalNotes * 2 * 0.95)
             ])->save();
             $score = new Score();
             $score->fill([
                 'userId' => 3,
                 'contestId' => $contestId,
-                'score' => $music->totalNotes * 2 * 0.888
+                'score' => (int) ($music->totalNotes * 2 * 0.888)
             ])->save();
             $score = new Score();
             $score->fill([
                 'userId' => 4,
                 'contestId' => $contestId,
-                'score' => $music->totalNotes * 2 * 0.777
+                'score' => (int) ($music->totalNotes * 2 * 0.777)
             ])->save();
             $score = new Score();
             $score->fill([
                 'userId' => 5,
                 'contestId' => $contestId,
-                'score' => $music->totalNotes * 2 * 0.666
+                'score' => (int) ($music->totalNotes * 2 * 0.666)
             ])->save();
             
         };
