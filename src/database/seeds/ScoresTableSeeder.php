@@ -17,6 +17,7 @@ class ScoresTableSeeder extends Seeder
     
         // userId: 1,2,3,4,5 = Mr.100%, 95%, AAA(88%), AA(77%), A(66%)
         for($contestId = 1; $contestId <= 30; $contestId++){
+            Log::info("Score: Contest of " . $contestId);
             $contest = Contest::where('id', $contestId)->first();
             $music = $contest->music;   
             $score = new Score();

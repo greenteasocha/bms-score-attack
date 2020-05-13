@@ -22,6 +22,7 @@ class MusicsTableSeeder extends Seeder
         
         $numOfMusics = 1030; // 全曲の場合、1030
         for ($i = 1; $i <= $numOfMusics; $i++) {
+            Log::Info('Music: '. $i);
             $musicData = $arr[$i];
             $score = new Music();
                 $score->fill([
