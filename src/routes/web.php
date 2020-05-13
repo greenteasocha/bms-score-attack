@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $authInfo = Auth::user();
-    return view('welcome', ['authInfo' => $authInfo]);
+    return view('root', ['authInfo' => $authInfo]);
 });
 
 Route::get('/home', 'TopPageController@getTopPage');
