@@ -90,23 +90,27 @@
             @endif --}}
             @section('content')
                 <div class="content">
+                    {{-- 一番上に、当日のコンテストへのリンクを表示 --}}
                     <div class="title m-b-md">
-                        <a href="/contests/1">
+                        Today's Contest ({{ $todaysContest["eventDate"] }})
+                        <a href={!! "/contests/" . $todaysContest["id"] !!}>
                         {{ $todaysContest['musicName'] }}
                         </a>
                     </div>
 
                     <div class="pastContests">
+                        {{-- 過去一週間のコンテストを小さく表示 --}}
+                        Recent Contests
                         @foreach ($pastSixContests as $pastContest)
-                        <div>    
-                            {{-- {{ $loop->iteation }} --}}
-                            {{ $pastContest["eventDate"] }}
-                            <a href={!! "/contests/" . $pastContest["id"] !!}>
-                                {{ $pastContest["musicName"] }}
-                            </a>                    
-                        </div>
+                            <div>
+                                {{-- {{ $loop->iteation }} --}}
+                                {{ $pastContest["eventDate"] }}
+                                <a href={!! "/contests/" . $pastContest["id"] !!}>
+                                    {{ $pastContest["musicName"] }}
+                                </a>                    
+                            </div>
+                        @endforeach
                     </div>
-                    @endforeach
                 </div>
             @endsection
         </div>

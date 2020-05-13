@@ -8,7 +8,7 @@
     <h1>Theme:  {{ $basicInfo["musicName"] }}</h1>
 
     @auth
-        <form action={!! "/contests/" . $basicInfo["id"] !!} method="POST">
+        <form action={!! "/contests/" . $basicInfo["contestId"] !!} method="POST">
             {{-- TODO: とりあえずuserNameは手動入力にする。後々はログインしてもらってヘッダから獲得する --}}
             @csrf
             

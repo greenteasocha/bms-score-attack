@@ -12,7 +12,8 @@ class ScoresTableSeeder extends Seeder
      * @return void
      */
     public function run(Faker $faker)
-    {
+    {   
+        Log::debug("seeding scores");
         for($userIdx = 0; $userIdx < 10; $userIdx++){ 
             for($contestIdx = 0; $contestIdx < 10; $contestIdx++){
                 
