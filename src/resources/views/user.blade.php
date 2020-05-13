@@ -7,19 +7,23 @@
         <h1>HI, here is User {{ $basicInfo["userName"] }}</h1>
 
         <a href="/home"> Back to home <br> </a>
+        <table class="usertable">
+            <tr class="header-row">
+                <td><b> Date </b></td><td> <b>theme </b></td> <td><b>score </b></td>
+            </tr>
 
-        <b> Date / Theme song / score <br> </b>
-
-        @foreach ($scores as $score)
-            <div>    
-                {{-- {{ $loop->iteation }} --}}
-                <a href={!! "/contests/" . $score["contestId"] !!}>
-                {{ $score["eventDate"] }}
-                </a>
-                {{ $score["musicName"] }}
-                {{ $score["score"] }}
-            </div>
-        @endforeach
+            @foreach ($scores as $score)
+                <tr>
+                    <td>
+                        <a href={!! "/contests/" . $score["contestId"] !!}>
+                        {{ $score["eventDate"] }}
+                        </a>
+                    </td>
+                    <td> {{ $score["musicName"] }} </td>
+                    <td> {{ $score["score"] }} </td>
+                </tr>  
+            @endforeach
+        </table>
     </body>
 </html>
 

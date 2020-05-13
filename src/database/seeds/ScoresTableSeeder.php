@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Score;
+use App\Models\Contest;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
 
@@ -13,24 +14,42 @@ class ScoresTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {   
-        Log::debug("seeding scores");
-        for($userIdx = 0; $userIdx < 10; $userIdx++){ 
-            for($contestIdx = 0; $contestIdx < 10; $contestIdx++){
-                
-                // 2020-04-01よりyyyymmddで10日分
-                $y = '2020';
-                $m = '4';
-                $d = '01';
-                $eventDate = date('Y-m-d', mktime(0, 0, 0, $m, $d + $contestIdx, $y));
-                $createdAt = $eventDate . ' 00:00:00';
-                
-                Score::create([
-                    'userId' => $userIdx + 1,
-                    'contestId' => $contestIdx + 1,
-                    'score' => $faker->numberBetween(1000, 8000),
-                    'created_at' => $createdAt,
-                ]);
-            };
+    
+        // userId: 1,2,3,4,5 = Mr.100%, 95%, AAA(88%), AA(77%), A(66%)
+        for($contestId = 1; $contestId <= 30; $contestId++){
+            $contest = Contest::where('id', $contestId)->first();
+            $music = $contest->music;   
+            $score = new Score();
+            $score->fill([
+                'userId' => 1,
+                'contestId' => $contestId,
+                'score' => $music->totalNotes * 2
+            ])->save();
+            $score = new Score();
+            $score->fill([
+                'userId' => 2,
+                'contestId' => $contestId,
+                'score' => $music->totalNotes * 2 * 0.95
+            ])->save();
+            $score = new Score();
+            $score->fill([
+                'userId' => 3,
+                'contestId' => $contestId,
+                'score' => $music->totalNotes * 2 * 0.888
+            ])->save();
+            $score = new Score();
+            $score->fill([
+                'userId' => 4,
+                'contestId' => $contestId,
+                'score' => $music->totalNotes * 2 * 0.777
+            ])->save();
+            $score = new Score();
+            $score->fill([
+                'userId' => 5,
+                'contestId' => $contestId,
+                'score' => $music->totalNotes * 2 * 0.666
+            ])->save();
+            
         };
     }
 }

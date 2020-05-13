@@ -4,7 +4,7 @@
 @section('content')
 <html>
     <body>
-    <h1>HI, here is contest {{ $basicInfo["eventDate"] }}</h1>
+    <h1>HI, here is Ranking {{ $basicInfo["eventDate"] }}</h1>
     <h1>Theme:  {{ $basicInfo["musicName"] }}</h1>
 
     @auth

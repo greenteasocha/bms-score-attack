@@ -12,18 +12,16 @@ class ContestsTableSeeder extends Seeder
      */
     public function run()
     {
-        for($i = 0; $i < 10; $i++){ 
-            // 2020-04-01よりyyyymmddで10日分
-            $y = '2020';
-            $m = '4';
-            $d = '01';
-            $eventDate = date('Y-m-d', mktime(0, 0, 0, $m, $d + $i, $y));
+        $eventDate = "2020-05-01";
+        for($i = 0; $i < 30; $i++){ 
+            Log::debug($eventDate);
             
             Contest::create([
-                'musicId' => $i + 1,
+                'musicId' => rand(1, 1030),
                 'contestDivision' => 1,
                 'eventDate' => $eventDate,
             ]);
+            $eventDate = date("Y-m-d", strtotime($eventDate . "+1 day"));
         }
     }
 }

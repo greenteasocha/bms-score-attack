@@ -9,7 +9,17 @@ use Illuminate\Support\Facades\Auth;
 class HomeService{
 
     public function getHomeContents(){
-        $recent_contests = Contest::orderBy('id', 'desc')->limit(7)->get();
+        // homeに表示するための、直近7日感のコンテストデータを取得
+        $eventDate = date("Y-m-d");
+        $recent_contests = Array();
+
+        for($i = 0; $i < 7; $i++){ 
+            $foundContest = Contest::where('eventDate', $eventDate)->first();
+            array_push($recent_contests, $foundContest);
+            $eventDate = date("Y-m-d", strtotime($eventDate . "-1 day"));
+        }
+        
+        // $recent_contests = Contest::orderBy('id', 'desc')->limit(7)->get();
         $contestsData = array();
         foreach ($recent_contests as $contest) {
             $music = $contest->music;

@@ -6,7 +6,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>BMS Daily Score Attack</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -46,8 +46,15 @@
                 text-align: center;
             }
 
+            .title-logo {
+                font-size: 42px;
+            }
+
             .title {
-                font-size: 84px;
+                font-size: 63px;
+            }
+            .pastContests {
+                font-size: 20px;
             }
 
             .links > a {
@@ -75,24 +82,13 @@
             @endguest
         </h1>
         <div class="flex-center position-ref">
-            {{-- @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif --}}
             @section('content')
                 <div class="content">
-                    {{-- 一番上に、当日のコンテストへのリンクを表示 --}}
+                    <div class="title-logo">
+                        BMS Daily Score Attack
+                    </div>
                     <div class="title m-b-md">
-                        Today's Contest ({{ $todaysContest["eventDate"] }})
+                        Today's Theme ({{ $todaysContest["eventDate"] }}) <br>
                         <a href={!! "/contests/" . $todaysContest["id"] !!}>
                         {{ $todaysContest['musicName'] }}
                         </a>
@@ -100,7 +96,8 @@
 
                     <div class="pastContests">
                         {{-- 過去一週間のコンテストを小さく表示 --}}
-                        Recent Contests
+                        Recent Rankings <br>
+                        (過去1週間のランキングにはスコアを登録することができます)
                         @foreach ($pastSixContests as $pastContest)
                             <div>
                                 {{-- {{ $loop->iteation }} --}}
