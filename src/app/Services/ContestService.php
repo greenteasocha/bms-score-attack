@@ -33,6 +33,7 @@ class ContestService{
             'eventDate' => $contest->eventDate,
             'contestId' => $contest->id,
             'musicName' => $music->musicName,
+            'LR2Link' => $music->LR2Link,
         ];
         $authInfo = Auth::user();
 

@@ -73,14 +73,14 @@
         </style>
     </head>
     <body>
-        <h1>
+        {{-- <h1>
             @auth
             Hello.　{{ $authInfo->userName }}
             @endauth
             @guest
             Hello. GUEST
             @endguest
-        </h1>
+        </h1> --}}
         <div class="flex-center position-ref">
             @section('content')
                 <div class="content">
