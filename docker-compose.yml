@@ -59,21 +59,23 @@ services:
     ports:
       - ${DB_PORT:-3306}:3306
 
-  # db-testing:
-  #   image: mysql:8.0
-  #   volumes:
-  #     - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
-  #   tmpfs:
-  #     - /var/lib/mysql
-  #     - /var/log/mysql
-  #   environment:
-  #     - MYSQL_DATABASE=${DB_NAME:-score_attack}
-  #     - MYSQL_USER=${DB_USER:-user}
-  #     - MYSQL_PASSWORD=${DB_PASS:-secret}
-  #     - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}
-  #     - TZ=${TZ:-Asia/Tokyo}
-  #   ports:
-  #     - ${DB_TESTING_PORT:-13307}:3306
+  db-testing:
+    image: mysql:8.0
+    volumes:
+      - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    tmpfs:
+      - /var/lib/mysql
+      - /var/log/mysql
+    environment:
+      - MYSQL_DATABASE=${DB_NAME_TEST:-score_attack_test}
+      - MYSQL_USER=${DB_USER:-user}
+      - MYSQL_PASSWORD=${DB_PASS:-secret}
+      - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}
+      - TZ=${TZ:-Asia/Tokyo}
+    ports:
+      - ${DB_TESTING_PORT:-13307}:3306
+    tty: true
+
 
   # node:
   #   image: node:12.14-alpine

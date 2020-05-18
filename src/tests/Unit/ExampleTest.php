@@ -56,7 +56,7 @@ class ExampleTest extends TestCase
         $user = factory(User::class, 10)->create();
         $response = $this->get('/users/1');
         $response->assertStatus(200);
-        $response = $this->get('/users/2');
+        $response = $this->get('/users/11');
         $response->assertStatus(404);
 
     }

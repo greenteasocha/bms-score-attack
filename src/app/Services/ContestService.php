@@ -28,6 +28,9 @@ class ContestService{
         // まずそのコンテストに関係するスコアを取得
         $aggregatedScores = array();
         $contest = Contest::where('id', $contestId)->first();
+        if ($contest == null) {
+            abort(404);
+        }
         $music = $contest->music;
         $basicInfo = [
             'eventDate' => $contest->eventDate,
