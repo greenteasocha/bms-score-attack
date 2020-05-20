@@ -84,14 +84,16 @@
         <div class="flex-center position-ref">
             @section('content')
                 <div class="content">
-                    <div class="title-logo">
-                        BMS Daily Score Attack
-                    </div>
-                    <div class="title m-b-md">
-                        Today's Theme ({{ $todaysContest["eventDate"] }}) <br>
-                        <a href={!! "/contests/" . $todaysContest["id"] !!}>
-                        {{ $todaysContest['musicName'] }}
-                        </a>
+                    <div class="curvedEnclosure" align="center">
+                        <div class="title-logo">
+                            BMS Daily Score Attack
+                        </div>
+                        <div class="title m-b-md">
+                            Today's Theme ({{ $todaysContest["eventDate"] }}) <br>
+                            <a href={!! "/contests/" . $todaysContest["id"] !!}>
+                            {{ $todaysContest['musicName'] }}
+                            </a>
+                        </div>
                     </div>
 
                     <div class="pastContests">

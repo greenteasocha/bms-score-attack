@@ -11,6 +11,9 @@ class UserPageController extends Controller
     public function aggregateUserData($userId){
         $aggregatedUserHistories = array();
         $user = User::where('id', $userId)->first();
+        if ($user == null){
+            abort(404);
+        }
         $scores = Score::where('userId', $userId)->get();
 
         foreach ($scores as $score){
@@ -25,7 +28,7 @@ class UserPageController extends Controller
         }
     
         // contestId順にソート
-        // $sort = array(); 
+        $sort = array(); 
         foreach ($aggregatedUserHistories as $key => $value) {
             $sort[$key] = $value['contestId'];
         }

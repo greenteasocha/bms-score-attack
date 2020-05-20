@@ -30,26 +30,7 @@ class ContestPageController extends Controller
 
     public function handlePostedScore(Request $request, $contestId){
         $contestPageData = $this->contestService->postScore($request, $contestId);
-        // // (存在すれば)そのプレイヤーが過去に提出したハイスコアをチェック
-        // $previousScore = Score::where('contestId', $contestId)->where('userId', $request['userId'])->first();
         
-        // if (is_null($previousScore)) {
-        //     // 初提出の場合、レコードを作成
-        //     $score = new Score();
-        //     $score->fill([
-        //         'userId' => $request["userId"],
-        //         'contestId' => $contestId,
-        //         'score' => $request["score"],
-        //         'comment' => $request["comment"],
-        //     ])->save();
-        //     return redirect('/contests/' . $contestId);
-        // } elseif ($request['score'] > $previousScore['score']) {
-        //     $previousScore->score = $request['score'];
-        //     $previousScore->comment = $request['comment'];
-        //     $previousScore->save();
-        //     return redirect('/contests/' . $contestId);
-        // } else {
             return redirect('/contests/' . $contestId);
-        // }
     }
 }
