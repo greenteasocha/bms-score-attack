@@ -41,6 +41,8 @@ class LoginTest extends TestCase
 
     }
 
+    // 投稿フォーム表示のテスト(保留)
+    // どうやらバージョンの関係でvisitが廃止されている？
     // public function testHomeView()
     // {
     //     $$this->browse(function ($browser) {
@@ -50,20 +52,3 @@ class LoginTest extends TestCase
     // }
 
 }
-// class LoginTest extends TestCase
-// {
-//     /** @test */
-//     public function user_can_view_login()
-//     {
-//         $response = $this->get('login');
- 
-//         $response->assertStatus(200);
-//     }
- 
-//     /** @test */
-//     public function unauthenticated_user_cannot_view_home()
-//     {
-//         $this->get('home')
-//             ->assertRedirect('login');
-//     }
-// }
