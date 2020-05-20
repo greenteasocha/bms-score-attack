@@ -25,40 +25,43 @@ class ExampleTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testBasicPatterns(){
-        $this -> assertTrue(True);
+    // public function testBasicPatterns(){
+    //     $this -> assertTrue(True);
 
-        $arr = [];
-        $this -> assertEmpty($arr);
+    //     $arr = [];
+    //     $this -> assertEmpty($arr);
 
-        $msg = "Hello";
-        $this -> assertEquals("Hello", $msg);
+    //     $msg = "Hello";
+    //     $this -> assertEquals("Hello", $msg);
 
-        $n = random_int(0, 100);
-    //     $this -> assertLessThan(100, $n);
-    }
+    //     $n = random_int(0, 100);
+    // //     $this -> assertLessThan(100, $n);
+    // }
 
-    public function testRouting(){
-        $response = $this->get('/contests');
-        $response->assertStatus(200);
+    // public function testRouting(){
+    //     $response = $this->get('/contests');
+    //     $response->assertStatus(200);
 
-        $musics = factory(Music::class, 1)->create();
-        Contest::create([
-            'musicId' => 1,
-            'contestDivision' => 1,
-            'eventDate' => "2020-04-01",
-        ]);
-        $response = $this->get('/contests/1');
-        $response->assertStatus(200);
-        $response = $this->get('/contests/2');
-        $response->assertStatus(404);
+    //     $musics = factory(Music::class, 1)->create();
+    //     Contest::create([
+    //         'musicId' => 1,
+    //         'contestDivision' => 1,
+    //         'eventDate' => "2020-04-01",
+    //     ]);
 
-        $user = factory(User::class, 10)->create();
-        $response = $this->get('/users/1');
-        $response->assertStatus(200);
-        $response = $this->get('/users/11');
-        $response->assertStatus(404);
+    //     // コンテストページのテスト
+    //     $response = $this->get('/contests/1');
+    //     $response->assertStatus(200);
+    //     $response = $this->get('/contests/2');
+    //     $response->assertStatus(404);
 
-    }
+    //     // ユーザページのテスト
+    //     $user = factory(User::class, 10)->create();
+    //     $response = $this->get('/users/1');
+    //     $response->assertStatus(200);
+    //     $response = $this->get('/users/11');
+    //     $response->assertStatus(404);
+
+    // }
     
 }

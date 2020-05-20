@@ -36,6 +36,19 @@
         
         width: 70%;
     }
+    .curvedEnclosure{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto; 
+    text-align: center;
+    color: #000000;
+    background-color: #ffebcd;
+    border:solid 5px #000000;
+    border-radius: 1em;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    padding: 30px;
+    }
 </style>
 <body>
     <div id="app">
